@@ -70,11 +70,13 @@
   @media(max-width:900px){nav.top a.link{display:none}}
   /* Hero */
   .hero{background:var(--fog);color:var(--warm-black);position:relative;overflow:hidden}
-  .hero-tri{position:absolute;top:0;right:0;height:110%;width:auto;pointer-events:none;user-select:none;z-index:0}
+  .hero-tri{position:absolute;top:0;right:0;height:84%;width:auto;pointer-events:none;user-select:none;z-index:0}
   .hero .wrap{position:relative;z-index:1;padding:116px var(--pagepad) 124px}
   .hero-inner{max-width:660px}
   .hero h1{font-size:clamp(33px,4.8vw,56px);color:var(--warm-black);margin:0}
-  .hero h1 .hl{color:var(--neptune)}
+  .hero h1 .hl{color:var(--warm-black)}
+  .hero h1 .attn{background-image:linear-gradient(90deg,#2F2F2F 0%,#2F2F2F 15%,#6446FF 38%,#AF46B4 55%,#FF585D 72%,#2F2F2F 90%,#2F2F2F 100%);background-size:400% 100%;background-position:0% 50%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:attnflow 9s ease-in-out infinite}
+  @keyframes attnflow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
   .hero p.lede{color:var(--muted);font-size:19px;max-width:54ch;margin:34px 0 0;font-weight:400}
   .hero-cta{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap}
   .hero .btn.ghost{border-color:var(--warm-black);color:var(--warm-black) !important}
@@ -88,7 +90,7 @@
   .stat .n small{font-size:14px;color:var(--muted);font-weight:400}
   .stat .k{color:var(--muted);font-size:13px;margin-top:8px;font-weight:400}
   .stat .k b{color:var(--neptune-deep);font-weight:600}
-  @media(max-width:880px){.hero .wrap{padding:72px var(--pagepad) 78px}.hero-tri{height:72%;top:-4%}section{padding:88px 0}section.tight{padding:76px 0}}
+  @media(max-width:880px){.hero .wrap{padding:72px var(--pagepad) 78px}.hero-tri{height:56%;top:-3%}section{padding:88px 0}section.tight{padding:76px 0}}
   /* Sections */
   section{padding:120px 0}
   section.tight{padding:100px 0}
@@ -320,7 +322,7 @@
     section{padding:72px 0}
     section.tight{padding:64px 0}
     .hero .wrap{padding:64px var(--pagepad) 68px}
-    .hero-tri{height:46%;top:-3%}
+    .hero-tri{height:38%;top:-2%}
     .hero p.lede{font-size:18px}
     .view-toggle{width:100%}
     .view-toggle button{flex:1}
@@ -362,7 +364,7 @@
   <img class="hero-tri" src="triangle.png" alt="" aria-hidden="true" />
   <div class="wrap">
     <div class="hero-inner">
-      <h1>Everyone measures coverage.<br><span class="hl">Almost nobody measures attention.</span></h1>
+      <h1>Everyone measures coverage.<br><span class="hl">Almost nobody measures <span class="attn">attention.</span></span></h1>
       <p class="lede">The Media Attention Index scores the quarter's biggest stories on two axes: how widely the world covered them, and how deeply audiences actually engaged. The gap between the two is where the real story lives.</p>
       <div class="hero-cta">
         <a class="btn" href="#index">Explore the index</a>
@@ -406,7 +408,7 @@
     <div class="kicker-row">
       <span class="eyebrow">The attention field</span>
       <h2 class="big">Every story, placed.</h2>
-      <p class="sub">Each event sits where its Coverage meets its Resonance. Hover for the full read-out, filter by category, or switch to a timeline of how the quarter unfolded.</p>
+      <p class="sub">Each event sits where its Coverage meets its Resonance. Hover (or tap) for the full read-out, filter by category, or switch to a timeline of how the quarter unfolded.</p>
     </div>
     <div class="view-toggle" role="group" aria-label="Choose a view">
       <button data-view="field" aria-pressed="true">Attention field</button>
@@ -718,6 +720,8 @@ const SOWHAT={
  "Culture":"Ever-present, rarely gripping. Steady volume, but the <b>lowest penetration and engagement</b> of any beat. Mostly background noise."
 };
 /* ---------------- HELPERS ---------------- */
+/* Touch devices have no hover: tooltips open on first tap, second tap jumps to the rankings table */
+const TOUCH=window.matchMedia('(hover: none), (pointer: coarse)').matches;
 const median=arr=>{const s=[...arr].sort((a,b)=>a-b);const m=Math.floor(s.length/2);return s.length%2?s[m]:(s[m-1]+s[m])/2;};
 const COV_MED=median(EVENTS.map(e=>e.coverage)), RES_MED=median(EVENTS.map(e=>e.resonance));
 const commas=n=>n.toLocaleString('en-US');
@@ -757,7 +761,8 @@ function ttHTML(e){
       <div class="met"><span class="lab">Volume</span><span class="val data">${commas(e.volume)}</span></div>
       <div class="met"><span class="lab">Net sent.</span><span class="val data" style="color:${nsCol}">${e.ns>0?'+':''}${e.ns}</span></div>
     </div>
-    <div class="score-row"><span class="label" style="color:#94908a">Attention score</span><span class="s data" style="color:${e.quad.ink}">${fmtScore(e.score)}</span></div>`;
+    <div class="score-row"><span class="label" style="color:#94908a">Attention score</span><span class="s data" style="color:${e.quad.ink}">${fmtScore(e.score)}</span></div>
+    ${TOUCH?'<div style="margin-top:8px;font-size:10.5px;color:#94908a">Tap again to open in rankings</div>':''}`;
 }
 /* ---------------- SCATTER ---------------- */
 const GEO_D={w:800,h:560,ml:66,mr:34,mt:38,mb:58,fL:13,fA:11.5,rMin:6,rSpan:11,qOff:20};
@@ -802,12 +807,25 @@ function buildNodes(){
     const show=()=>showTip(e,cx,cy);
     grp.addEventListener("mouseenter",show);grp.addEventListener("mousemove",show);
     grp.addEventListener("mouseleave",hideTip);grp.addEventListener("focus",show);grp.addEventListener("blur",hideTip);
-    grp.addEventListener("click",()=>flashRow(e.event));
+    grp.addEventListener("click",ev=>{
+      if(TOUCH){
+        ev.stopPropagation();
+        if(_activeNode!==grp){_activeNode=grp;showTip(e,cx,cy);return;}
+        _activeNode=null;hideTip();
+      }
+      flashRow(e.event);
+    });
     grp.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();flashRow(e.event);}});
     g.appendChild(grp);
   });
 }
 const tip=document.getElementById('tooltip'),plotSvg=document.getElementById('plot');
+let _activeNode=null,_activeBar=null;
+/* tapping outside a node/bar dismisses any open tooltip on touch devices */
+if(TOUCH)document.addEventListener('click',ev=>{
+  if(!ev.target.closest('.node')){hideTip();_activeNode=null;}
+  if(!ev.target.closest('.gbar')){hideTip2();_activeBar=null;}
+});
 function showTip(e,cx,cy){
   tip.innerHTML=ttHTML(e);
   const rect=plotSvg.getBoundingClientRect(),scale=rect.width/GEO.w;
@@ -859,7 +877,14 @@ function buildTimeline(){
     bar.addEventListener('mouseenter',ev=>showTip2(e,ev));
     bar.addEventListener('mousemove',ev=>showTip2(e,ev));
     bar.addEventListener('mouseleave',hideTip2);
-    bar.addEventListener('click',()=>flashRow(e.event));
+    bar.addEventListener('click',ev=>{
+      if(TOUCH){
+        ev.stopPropagation();
+        if(_activeBar!==bar){_activeBar=bar;showTip2(e,ev);return;}
+        _activeBar=null;hideTip2();
+      }
+      flashRow(e.event);
+    });
     body.appendChild(row);
   });
 }
