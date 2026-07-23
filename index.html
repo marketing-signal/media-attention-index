@@ -36,6 +36,7 @@
     --grad: linear-gradient(115deg, #6446FF 0%, #AF46B4 52%, #FF585D 100%);
     --radius:14px;
     --maxw:1440px;
+    --pagepad:48px;
     color:var(--text);
     background:var(--soft-white);
     font-weight:400;
@@ -49,7 +50,7 @@
   #mai-root a{color:inherit}
   :where(#mai-root p){margin:0}
   .data{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pagepad)}
   .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--neptune);font-weight:600}
   .label{font-size:11px;letter-spacing:.11em;text-transform:uppercase;font-weight:600}
   /* Header */
@@ -68,24 +69,26 @@
   .btn.ghost:hover{background:#ffffff12;box-shadow:none}
   @media(max-width:900px){nav.top a.link{display:none}}
   /* Hero */
-  .hero{background:var(--grad);color:#fff;position:relative;overflow:hidden}
-  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(90% 80% at 12% 8%, rgba(255,255,255,.16), transparent 55%)}
-  .hero .wrap{position:relative;padding:116px 24px 124px}
-  .hero-inner{max-width:940px}
-  .hero h1{font-size:clamp(33px,4.8vw,56px);color:#fff;margin:0}
-  .hero h1 .hl{color:#f2ecff}
-  .hero p.lede{color:#fbf7ff;font-size:19px;max-width:60ch;margin:34px 0 0;font-weight:400}
+  .hero{background:var(--fog);color:var(--warm-black);position:relative;overflow:hidden}
+  .hero-tri{position:absolute;top:0;right:0;height:110%;width:auto;pointer-events:none;user-select:none;z-index:0}
+  .hero .wrap{position:relative;z-index:1;padding:116px var(--pagepad) 124px}
+  .hero-inner{max-width:660px}
+  .hero h1{font-size:clamp(33px,4.8vw,56px);color:var(--warm-black);margin:0}
+  .hero h1 .hl{color:var(--neptune)}
+  .hero p.lede{color:var(--muted);font-size:19px;max-width:54ch;margin:34px 0 0;font-weight:400}
   .hero-cta{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap}
-  .edition{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#f0e8ff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:7px 13px}
-  .edition .dot{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,.7);animation:pulse 2.4s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.55)}70%{box-shadow:0 0 0 9px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+  .hero .btn.ghost{border-color:var(--warm-black);color:var(--warm-black) !important}
+  .hero .btn.ghost:hover{background:rgba(47,47,47,.06);box-shadow:none}
+  .edition{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--neptune-deep);border:1px solid var(--line);border-radius:999px;padding:7px 13px}
+  .edition .dot{width:7px;height:7px;border-radius:50%;background:var(--neptune);box-shadow:0 0 0 0 rgba(100,70,255,.7);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(100,70,255,.55)}70%{box-shadow:0 0 0 9px rgba(100,70,255,0)}100%{box-shadow:0 0 0 0 rgba(100,70,255,0)}}
   .hero-stats{display:flex;flex-direction:column;gap:13px}
-  .stat{border:1px solid rgba(255,255,255,.55);background:var(--soft-white);border-radius:var(--radius);padding:18px 20px;box-shadow:0 14px 34px -18px rgba(47,20,60,.5)}
+  .stat{border:1px solid var(--line);background:var(--soft-white);border-radius:var(--radius);padding:18px 20px;box-shadow:0 14px 34px -18px rgba(47,20,60,.5)}
   .stat .n{font-weight:700;font-size:30px;color:var(--warm-black);line-height:1;letter-spacing:-.03em}
   .stat .n small{font-size:14px;color:var(--muted);font-weight:400}
   .stat .k{color:var(--muted);font-size:13px;margin-top:8px;font-weight:400}
   .stat .k b{color:var(--neptune-deep);font-weight:600}
-  @media(max-width:880px){.hero .wrap{padding:72px 24px 78px}section{padding:88px 0}section.tight{padding:76px 0}}
+  @media(max-width:880px){.hero .wrap{padding:72px var(--pagepad) 78px}.hero-tri{height:72%;top:-4%}section{padding:88px 0}section.tight{padding:76px 0}}
   /* Sections */
   section{padding:120px 0}
   section.tight{padding:100px 0}
@@ -313,10 +316,11 @@
   #mai-root :focus-visible{outline:2px solid var(--neptune);outline-offset:2px;border-radius:4px}
   @media (prefers-reduced-motion: reduce){#mai-root *{animation:none !important;transition:none !important}}
   @media(max-width:560px){
-    .wrap{padding:0 18px}
+    #mai-root{--pagepad:22px}
     section{padding:72px 0}
     section.tight{padding:64px 0}
-    .hero .wrap{padding:64px 18px 68px}
+    .hero .wrap{padding:64px var(--pagepad) 68px}
+    .hero-tri{height:46%;top:-3%}
     .hero p.lede{font-size:18px}
     .view-toggle{width:100%}
     .view-toggle button{flex:1}
@@ -355,6 +359,7 @@
 <!-- HERO -->
 <a id="top"></a>
 <div class="hero">
+  <img class="hero-tri" src="triangle.png" alt="" aria-hidden="true" />
   <div class="wrap">
     <div class="hero-inner">
       <h1>Everyone measures coverage.<br><span class="hl">Almost nobody measures attention.</span></h1>
