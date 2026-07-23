@@ -81,6 +81,7 @@
   .hero-cta{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap}
   .hero .btn.ghost{border-color:var(--warm-black);color:var(--warm-black) !important}
   .hero .btn.ghost:hover{background:rgba(47,47,47,.06);box-shadow:none}
+  .hero .edition{margin-bottom:28px}
   .edition{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--neptune-deep);border:1px solid var(--line);border-radius:999px;padding:7px 13px}
   .edition .dot{width:7px;height:7px;border-radius:50%;background:var(--neptune);box-shadow:0 0 0 0 rgba(100,70,255,.7);animation:pulse 2.4s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(100,70,255,.55)}70%{box-shadow:0 0 0 9px rgba(100,70,255,0)}100%{box-shadow:0 0 0 0 rgba(100,70,255,0)}}
@@ -90,10 +91,10 @@
   .stat .n small{font-size:14px;color:var(--muted);font-weight:400}
   .stat .k{color:var(--muted);font-size:13px;margin-top:8px;font-weight:400}
   .stat .k b{color:var(--neptune-deep);font-weight:600}
-  @media(max-width:880px){.hero .wrap{padding:72px var(--pagepad) 78px}.hero-tri{height:56%;top:-3%}section{padding:88px 0}section.tight{padding:76px 0}}
+  @media(max-width:880px){.hero .wrap{padding:72px var(--pagepad) 78px}.hero-tri{height:56%;top:-3%}section{padding:72px 0}section.tight{padding:62px 0}}
   /* Sections */
-  section{padding:120px 0}
-  section.tight{padding:100px 0}
+  section{padding:96px 0}
+  section.tight{padding:84px 0}
   .kicker-row{display:flex;flex-direction:column;gap:18px;max-width:64ch}
   h2.big{font-size:clamp(27px,3.4vw,40px)}
   .sub{color:var(--muted);font-size:17px;margin-top:4px;max-width:66ch;font-weight:300}
@@ -212,6 +213,18 @@
   .num{text-align:right}
   .score-pill{font-weight:700;font-size:15px}
   .table-scroll{overflow-x:auto}
+  /* Expandable ranking rows */
+  .rank-table tbody tr.erow{cursor:pointer}
+  .exp-caret{display:inline-block;margin-right:7px;color:var(--muted-2);font-size:10px;transition:transform .18s;vertical-align:1px}
+  tr.erow[aria-expanded="true"] .exp-caret{transform:rotate(90deg)}
+  .rank-table tbody tr.detail-row,.rank-table tbody tr.detail-row:hover{background:var(--fog)}
+  tr.detail-row>td{padding:0}
+  .detail-inner{display:grid;grid-template-columns:300px 1fr;gap:30px;padding:24px 26px;align-items:center}
+  .detail-inner svg{display:block;width:100%;max-width:300px;height:auto;overflow:visible}
+  .detail-copy h4{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .detail-copy p{font-size:14.5px;color:var(--text);font-weight:300;line-height:1.65;margin-top:10px;max-width:70ch}
+  .detail-copy .dleg{margin-top:14px;font-size:11.5px;color:var(--muted-2);font-weight:400}
+  @media(max-width:760px){.detail-inner{grid-template-columns:1fr;gap:16px;padding:18px 16px}}
   @media(max-width:760px){.hide-sm{display:none}}
   /* Spotlights */
   .spot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px}
@@ -319,8 +332,8 @@
   @media (prefers-reduced-motion: reduce){#mai-root *{animation:none !important;transition:none !important}}
   @media(max-width:560px){
     #mai-root{--pagepad:22px}
-    section{padding:72px 0}
-    section.tight{padding:64px 0}
+    section{padding:60px 0}
+    section.tight{padding:54px 0}
     .hero .wrap{padding:64px var(--pagepad) 68px}
     .hero-tri{height:38%;top:-2%}
     .hero p.lede{font-size:18px}
@@ -350,9 +363,9 @@
     </a>
     <nav class="top">
       <a class="link" href="#index">The index</a>
-      <a class="link" href="#category">By category</a>
       <a class="link" href="#rankings">Rankings</a>
-      <a class="link" href="#dwell">Dwell time</a>
+      <a class="link" href="#field">The field</a>
+      <a class="link" href="#category">By category</a>
       <a class="link" href="#method">Method</a>
       <a class="btn" href="#demo">Request a demo</a>
     </nav>
@@ -364,8 +377,9 @@
   <img class="hero-tri" src="triangle.png" alt="" aria-hidden="true" />
   <div class="wrap">
     <div class="hero-inner">
+      <span class="edition"><span class="dot"></span>Q2 2026 · April 1 – June 30 · Updated quarterly</span>
       <h1>Everyone measures coverage.<br><span class="hl">Almost nobody measures <span class="attn">attention.</span></span></h1>
-      <p class="lede">The Media Attention Index scores the quarter's biggest stories on two axes: how widely the world covered them, and how deeply audiences actually engaged. The gap between the two is where the real story lives.</p>
+      <p class="lede">The Media Attention Index scores the quarter's biggest stories on two axes: how widely the world covered them and how deeply audiences actually engaged. The gap between the two is where the real story lives.</p>
       <div class="hero-cta">
         <a class="btn" href="#index">Explore the index</a>
         <a class="btn ghost" href="#method">See the method</a>
@@ -398,6 +412,35 @@
           <li>Sentiment intensity, where conviction counts and routine, neutral coverage scores low</li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+<hr class="divider" />
+<!-- RANKINGS -->
+<section id="rankings">
+  <div class="wrap">
+    <div class="kicker-row">
+      <span class="eyebrow">The leaderboard</span>
+      <h2 class="big">Q2 2026, ranked.</h2>
+      <p class="sub">Every event, scored and sorted by Media Attention Score. Sort by any column; click or tap a row to see the metrics behind its score and what drove the coverage.</p>
+    </div>
+    <div class="table-tools"><span class="sort-note" id="sortNote">Sorted by Score, high to low</span></div>
+    <div class="table-scroll">
+      <table class="rank-table" id="rankTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th class="sortable" data-key="event">Event <span class="arrow">↕</span></th>
+            <th class="hide-sm">Category</th>
+            <th class="sortable num" data-key="coverage">Coverage <span class="arrow">↕</span></th>
+            <th class="sortable num" data-key="resonance">Resonance <span class="arrow">↕</span></th>
+            <th class="sortable num hide-sm" data-key="volume">Volume <span class="arrow">↕</span></th>
+            <th class="sortable num hide-sm" data-key="ns">Net sent. <span class="arrow">↕</span></th>
+            <th class="sortable num" data-key="score" aria-sort="descending">Score <span class="arrow">↓</span></th>
+          </tr>
+        </thead>
+        <tbody id="rankBody"></tbody>
+      </table>
     </div>
   </div>
 </section>
@@ -452,6 +495,18 @@
   </div>
 </section>
 <hr class="divider" />
+<!-- SPOTLIGHTS -->
+<section class="tight">
+  <div class="wrap">
+    <div class="kicker-row">
+      <span class="eyebrow">Read the gaps</span>
+      <h2 class="big">Three stories, three lessons.</h2>
+      <p class="sub">The index earns its keep at the extremes, where coverage and attention pull apart.</p>
+    </div>
+    <div class="spot-grid" id="spotGrid"></div>
+  </div>
+</section>
+<hr class="divider" />
 <!-- BY CATEGORY (RADAR) -->
 <section class="cat-sec" id="category">
   <div class="wrap">
@@ -477,51 +532,10 @@
     </div>
     <div class="takeaway">
       <span class="label">The takeaway</span>
-      <p>Coverage and attention rarely move together. Business and Health &amp; Climate generate some of the heaviest coverage of the quarter yet the thinnest engagement per article, while Crime &amp; Justice and Society earn outsized readership from a fraction of the volume. Plan around the beat, not the headline count.</p>
+      <p>Coverage and attention don't always move together. Business and Health &amp; Climate generate some of the heaviest coverage of the quarter yet the thinnest engagement per article, while Crime &amp; Justice and Society earn outsized readership from a fraction of the volume. Plan around the beat, not the headline count.</p>
     </div>
   </div>
 </section>
-<!-- RANKINGS -->
-<section id="rankings">
-  <div class="wrap">
-    <div class="kicker-row">
-      <span class="eyebrow">The leaderboard</span>
-      <h2 class="big">Q2 2026, ranked.</h2>
-      <p class="sub">Every event, scored and sorted by Media Attention Score. Sort by any column; select a row to find it on the field.</p>
-    </div>
-    <div class="table-tools"><span class="sort-note" id="sortNote">Sorted by Score, high to low</span></div>
-    <div class="table-scroll">
-      <table class="rank-table" id="rankTable">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th class="sortable" data-key="event">Event <span class="arrow">↕</span></th>
-            <th class="hide-sm">Category</th>
-            <th class="sortable num" data-key="coverage">Coverage <span class="arrow">↕</span></th>
-            <th class="sortable num" data-key="resonance">Resonance <span class="arrow">↕</span></th>
-            <th class="sortable num hide-sm" data-key="volume">Volume <span class="arrow">↕</span></th>
-            <th class="sortable num hide-sm" data-key="ns">Net sent. <span class="arrow">↕</span></th>
-            <th class="sortable num" data-key="score" aria-sort="descending">Score <span class="arrow">↓</span></th>
-          </tr>
-        </thead>
-        <tbody id="rankBody"></tbody>
-      </table>
-    </div>
-  </div>
-</section>
-<hr class="divider" />
-<!-- SPOTLIGHTS -->
-<section class="tight">
-  <div class="wrap">
-    <div class="kicker-row">
-      <span class="eyebrow">Read the gaps</span>
-      <h2 class="big">Three stories, three lessons.</h2>
-      <p class="sub">The index earns its keep at the extremes, where coverage and attention pull apart.</p>
-    </div>
-    <div class="spot-grid" id="spotGrid"></div>
-  </div>
-</section>
-<hr class="divider" />
 <!-- DWELL TIME -->
 <section class="dwell-sec" id="dwell">
   <div class="wrap">
@@ -671,26 +685,26 @@ const EVENTS = [
   {event:"FIFA World Cup",cat:"Sports",volume:1123394,ns:26.41,t1pen:0.7161,avgread:12656,coverage:0.5202,resonance:0.1624,score:0.29},
   {event:"Epstein Files",cat:"Politics",volume:179006,ns:-80.58,t1pen:2.653,avgread:51893,coverage:0.6946,resonance:0.7598,score:0.73},
   {event:"NBA Finals",cat:"Sports",volume:637669,ns:20.24,t1pen:1.3236,avgread:19838,coverage:0.5755,resonance:0.2356,score:0.37},
-  {event:"USA 250th Birthday",cat:"Society",volume:104877,ns:-47.03,t1pen:2.4104,avgread:48741,coverage:0.624,resonance:0.5776,score:0.6},
-  {event:"Hantavirus",cat:"Health & Climate",volume:298577,ns:12.2,t1pen:1.1608,avgread:37823,coverage:0.5026,resonance:0.3447,score:0.42},
+  {event:"USA 250th Anniversary",cat:"Society",volume:104877,ns:-47.03,t1pen:2.4104,avgread:48741,coverage:0.624,resonance:0.5776,score:0.6},
+  {event:"Hantavirus Outbreak",cat:"Health & Climate",volume:298577,ns:12.2,t1pen:1.1608,avgread:37823,coverage:0.5026,resonance:0.3447,score:0.42},
   {event:"Nancy Guthrie Disappearance",cat:"Crime & Justice",volume:9122,ns:8.32,t1pen:2.642,avgread:96288,coverage:0.5032,resonance:0.5416,score:0.52},
   {event:"Memorial Day",cat:"Society",volume:5381,ns:64.68,t1pen:0.7805,avgread:22003,coverage:0.1893,resonance:0.4817,score:0.3},
   {event:"Met Gala",cat:"Culture",volume:29853,ns:33.38,t1pen:0.9647,avgread:24383,coverage:0.3263,resonance:0.349,score:0.34},
-  {event:"Venezuela / Maduro capture",cat:"Politics",volume:62606,ns:-20.95,t1pen:2.0318,avgread:28054,coverage:0.5341,resonance:0.3193,score:0.41},
+  {event:"Venezuela Military Intervention",cat:"Politics",volume:62606,ns:-20.95,t1pen:2.0318,avgread:28054,coverage:0.5341,resonance:0.3193,score:0.41},
   {event:"SpaceX IPO",cat:"Business",volume:181842,ns:4.21,t1pen:3.9039,avgread:15665,coverage:0.8839,resonance:0.1008,score:0.3},
   {event:"DHS Shutdown",cat:"Politics",volume:65658,ns:-45.87,t1pen:2.3028,avgread:39466,coverage:0.578,resonance:0.5229,score:0.55},
-  {event:"Greenland",cat:"Politics",volume:146782,ns:-85.43,t1pen:2.2946,avgread:43857,coverage:0.628,resonance:0.7451,score:0.68},
-  {event:"Devil Wears Prada 2",cat:"Culture",volume:92830,ns:39.01,t1pen:1.1139,avgread:14941,coverage:0.4211,resonance:0.2638,score:0.33},
+  {event:"Greenland Annexation",cat:"Politics",volume:146782,ns:-85.43,t1pen:2.2946,avgread:43857,coverage:0.628,resonance:0.7451,score:0.68},
+  {event:"The Devil Wears Prada 2",cat:"Culture",volume:92830,ns:39.01,t1pen:1.1139,avgread:14941,coverage:0.4211,resonance:0.2638,score:0.33},
   {event:"Cannes Film Festival",cat:"Culture",volume:75710,ns:49.08,t1pen:1.202,avgread:15011,coverage:0.4213,resonance:0.3152,score:0.36},
   {event:"European Heatwave",cat:"Health & Climate",volume:387523,ns:13.93,t1pen:0.7329,avgread:27041,coverage:0.4548,resonance:0.2757,score:0.35},
   {event:"Luigi Mangione Trial",cat:"Crime & Justice",volume:50297,ns:-63.8,t1pen:2.2665,avgread:23899,coverage:0.5555,resonance:0.4965,score:0.53},
   {event:"Spirit Airlines Shutdown",cat:"Business",volume:48773,ns:-50.19,t1pen:2.4255,avgread:20498,coverage:0.5775,resonance:0.3929,score:0.48},
   {event:"DR Congo Ebola Outbreak",cat:"Health & Climate",volume:108043,ns:25.91,t1pen:0.9533,avgread:15323,coverage:0.4066,resonance:0.2042,score:0.29},
   {event:"Juneteenth",cat:"Society",volume:35149,ns:55.06,t1pen:1.175,avgread:21448,coverage:0.3684,resonance:0.4277,score:0.4},
-  {event:"Amanda Batula & West Wilson",cat:"Culture",volume:10189,ns:-8.83,t1pen:0.8048,avgread:11101,coverage:0.2337,resonance:0.0442,score:0.1},
+  {event:"Amanda Batula & West Wilson Romance",cat:"Culture",volume:10189,ns:-8.83,t1pen:0.8048,avgread:11101,coverage:0.2337,resonance:0.0442,score:0.1},
   {event:"Pride Month",cat:"Society",volume:47804,ns:40.39,t1pen:0.8556,avgread:23222,coverage:0.3399,resonance:0.3728,score:0.36},
-  {event:"Jaxson Dart & Trump",cat:"Sports",volume:441,ns:-87.11,t1pen:3.6281,avgread:25848,coverage:0.4585,resonance:0.6312,score:0.54},
-  {event:"US-Iran War",cat:"Politics",volume:199486,ns:-18.01,t1pen:0.9324,avgread:49246,coverage:0.4425,resonance:0.4349,score:0.44},
+  {event:"Jaxson Dart & Trump Controversy",cat:"Sports",volume:441,ns:-87.11,t1pen:3.6281,avgread:25848,coverage:0.4585,resonance:0.6312,score:0.54},
+  {event:"US-Iran Conflict",cat:"Politics",volume:199486,ns:-18.01,t1pen:0.9324,avgread:49246,coverage:0.4425,resonance:0.4349,score:0.44},
   {event:"Russia-Ukraine War",cat:"Politics",volume:252641,ns:-19.98,t1pen:0.5822,avgread:31443,coverage:0.4049,resonance:0.3409,score:0.37}
 ];
 /* indicative timeline windows: f=fixed calendar date, else running story */
@@ -698,26 +712,53 @@ const TL={
  "Met Gala":{s:"2026-05-04",d:3,f:true},"Cannes Film Festival":{s:"2026-05-12",d:12,f:true},
  "Memorial Day":{s:"2026-05-25",d:3,f:true},"Pride Month":{s:"2026-06-01",d:30,f:true},
  "Juneteenth":{s:"2026-06-19",d:3,f:true},"NBA Finals":{s:"2026-06-04",d:15,f:true},
- "FIFA World Cup":{s:"2026-06-11",d:39,f:true},"USA 250th Birthday":{s:"2026-07-04",d:4,f:true},
- "Greenland":{s:"2026-05-18",d:40,f:false},"Luigi Mangione Trial":{s:"2026-06-01",d:30,f:false},
- "Epstein Files":{s:"2026-06-12",d:26,f:false},"Venezuela / Maduro capture":{s:"2026-06-20",d:12,f:false},
+ "FIFA World Cup":{s:"2026-06-11",d:39,f:true},"USA 250th Anniversary":{s:"2026-07-04",d:4,f:true},
+ "Greenland Annexation":{s:"2026-05-18",d:40,f:false},"Luigi Mangione Trial":{s:"2026-06-01",d:30,f:false},
+ "Epstein Files":{s:"2026-06-12",d:26,f:false},"Venezuela Military Intervention":{s:"2026-06-20",d:12,f:false},
  "Nancy Guthrie Disappearance":{s:"2026-06-08",d:14,f:false},"DHS Shutdown":{s:"2026-06-24",d:14,f:false},
- "Amanda Batula & West Wilson":{s:"2026-05-14",d:8,f:false},"Spirit Airlines Shutdown":{s:"2026-06-05",d:12,f:false},
- "Devil Wears Prada 2":{s:"2026-05-08",d:22,f:false},"Hantavirus":{s:"2026-05-01",d:20,f:false},
+ "Amanda Batula & West Wilson Romance":{s:"2026-05-14",d:8,f:false},"Spirit Airlines Shutdown":{s:"2026-06-05",d:12,f:false},
+ "The Devil Wears Prada 2":{s:"2026-05-08",d:22,f:false},"Hantavirus Outbreak":{s:"2026-05-01",d:20,f:false},
  "European Heatwave":{s:"2026-06-26",d:20,f:false},"DR Congo Ebola Outbreak":{s:"2026-05-05",d:28,f:false},
- "Jaxson Dart & Trump":{s:"2026-06-22",d:6,f:false},"SpaceX IPO":{s:"2026-06-28",d:12,f:false},
- "Russia-Ukraine War":{s:"2026-04-01",d:118,f:false},"US-Iran War":{s:"2026-06-13",d:32,f:false}
+ "Jaxson Dart & Trump Controversy":{s:"2026-06-22",d:6,f:false},"SpaceX IPO":{s:"2026-06-28",d:12,f:false},
+ "Russia-Ukraine War":{s:"2026-04-01",d:118,f:false},"US-Iran Conflict":{s:"2026-06-13",d:32,f:false}
 };
 EVENTS.forEach(e=>{e.tl=TL[e.event];});
 /* category takeaways (data-true) */
 const SOWHAT={
- "Politics":"The quarter's heavyweight. Politics leads every beat on average attention score, spanning divisive geopolitics from the Epstein Files to the Russia-Ukraine and US-Iran wars: <b>loud, contentious, and impossible for agenda-setting outlets to ignore</b>.",
+ "Politics":"The quarter's heavyweight. Politics leads every beat on average attention score, spanning divisive geopolitics from the Epstein Files to the Russia-Ukraine war and the US-Iran conflict: <b>loud, contentious, and impossible for agenda-setting outlets to ignore</b>.",
  "Crime & Justice":"Small in volume, huge in pull. The fewest stories of any beat, yet the <b>highest readership per article</b>. When audiences click, they click on this.",
  "Business":"All coverage, little conversation. The deepest Tier 1 penetration of any category, but among the <b>lowest readership and flattest sentiment</b>. Column inches that rarely convert to eyeballs.",
  "Sports":"Broad by design. Enormous volume and sharp event-driven spikes, but <b>thin engagement per article</b> once the final whistle blows.",
  "Society":"Overlooked by Tier 1, embraced by readers. Civic and holiday moments barely register in agenda-setting outlets, yet carry <b>real emotional charge and readership</b>. The classic sleeper beat.",
  "Health & Climate":"Biggest footprint, faintest signal. The <b>highest raw volume</b> of any category, scattered across non-Tier 1 outlets and covered with little emotional charge.",
  "Culture":"Ever-present, rarely gripping. Steady volume, but the <b>lowest penetration and engagement</b> of any beat. Mostly background noise."
+};
+/* what drove each story's Q2 coverage — shown in the expandable ranking rows */
+const WHAT={
+ "FIFA World Cup":"Attention built steadily as the tournament kicked off across North America in June, peaking during the opening rounds before settling into a sustained rhythm of match coverage.",
+ "Epstein Files":"Renewed legal developments kept the files in the news throughout Q2, with readership driven by recurring document releases, court activity, and congressional scrutiny.",
+ "NBA Finals":"A concentrated two-week burst tracking the series in early June, spiking around the opening tip and the deciding games, then fading almost immediately after the final buzzer.",
+ "USA 250th Anniversary":"Semiquincentennial celebrations drew blanket coverage around July 4, but political disputes over the festivities pushed sentiment sharply negative even as readership soared.",
+ "Hantavirus Outbreak":"A cluster of cases in early May triggered broad public-health coverage that stayed high in volume but largely informational in tone, cooling as case counts stabilised.",
+ "Nancy Guthrie Disappearance":"A missing-person case that generated modest article volume but extraordinary engagement, with readers following each development closely as the search unfolded through June.",
+ "Memorial Day":"A short, warm burst of holiday coverage: small in volume, strongly positive in tone, and read well beyond what the article count would predict.",
+ "Met Gala":"One night of fashion coverage in early May produced a sharp spike, strong readership per article, and a quick return to baseline.",
+ "Venezuela Military Intervention":"The late-June operation dominated foreign-desk coverage for nearly two weeks, with heavy Tier 1 pickup and steady readership at each development.",
+ "SpaceX IPO":"The filing blanketed business and tech pages with the deepest Tier 1 penetration of the quarter, but the largely procedural coverage drew few readers per article.",
+ "DHS Shutdown":"The late-June funding standoff produced two weeks of high-stakes political coverage that readers followed closely as the deadline approached.",
+ "Greenland Annexation":"Escalating annexation rhetoric from mid-May onward drove the quarter's most negative coverage, with sustained Tier 1 attention and heavy readership at every turn.",
+ "The Devil Wears Prada 2":"A steady drip of trailers, casting news, and nostalgia pieces through May kept the sequel in entertainment feeds without ever gripping readers.",
+ "Cannes Film Festival":"Twelve days of premieres and jury news in mid-May: reliably positive, reliably covered, and only modestly read.",
+ "European Heatwave":"Record temperatures from late June generated enormous wire volume across weather and climate desks, but the coverage was routine in tone and lightly engaged.",
+ "Luigi Mangione Trial":"Courtroom developments through June kept the trial in the news cycle, with strongly negative sentiment and consistent reader interest around each hearing.",
+ "Spirit Airlines Shutdown":"The carrier's abrupt June wind-down sparked two weeks of consumer and business coverage as stranded travellers and refund questions kept the story alive.",
+ "DR Congo Ebola Outbreak":"A month of steady outbreak reporting from early May: high in volume, concentrated outside Tier 1 outlets, and comparatively lightly read.",
+ "Juneteenth":"A short, positive burst of commemoration coverage around June 19 that punched above its size in readership.",
+ "Amanda Batula & West Wilson Romance":"A reality-TV relationship story that bubbled through celebrity outlets in mid-May but never translated into meaningful engagement.",
+ "Pride Month":"A month of steady, positive coverage across June, with modest Tier 1 pickup but consistent reader engagement throughout.",
+ "Jaxson Dart & Trump Controversy":"Barely a few hundred articles, but almost all Tier 1, sharply negative, and heavily read: the quarter's most concentrated attention spike.",
+ "US-Iran Conflict":"The mid-June escalation drove weeks of sustained conflict coverage, with the quarter's largest total readership following every development.",
+ "Russia-Ukraine War":"The war ran as a constant backdrop all quarter: steady volume, modest Tier 1 share, and durable reader attention across months of coverage."
 };
 /* ---------------- HELPERS ---------------- */
 /* Touch devices have no hover: tooltips open on first tap, second tap jumps to the rankings table */
@@ -976,22 +1017,67 @@ function buildRadarChips(){
 }
 /* ---------------- RANKINGS ---------------- */
 let sortKey="score",sortDir=-1;
+/* small per-story spider chart for the expandable rows */
+function buildEventRadar(e){
+  const cx=140,cy=118,R=74,N=DIMS.length;
+  const pt=(i,v)=>{const a=(-90+i*(360/N))*Math.PI/180;return[cx+Math.cos(a)*R*v,cy+Math.sin(a)*R*v];};
+  const path=vals=>vals.map((v,i)=>{const[x,y]=pt(i,v);return(i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1);}).join(' ')+' Z';
+  const all=catAvg("ALL"),avgVals=DIMS.map(d=>all[d.k]),vals=DIMS.map(d=>e.norm[d.k]);
+  let p="";
+  [0.25,0.5,0.75,1].forEach(r=>{
+    p+=`<polygon points="${DIMS.map((d,i)=>pt(i,r).map(n=>n.toFixed(1)).join(',')).join(' ')}" fill="none" stroke="#dcd9cf" stroke-width="1"/>`;
+  });
+  DIMS.forEach((d,i)=>{
+    const[x,y]=pt(i,1);
+    p+=`<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#dcd9cf" stroke-width="1"/>`;
+    const[lx,ly]=pt(i,1.22);
+    const anchor=Math.abs(lx-cx)<8?"middle":(lx>cx?"start":"end");
+    const dy=ly<cy-4?0:(ly>cy+4?9:4);
+    p+=`<text x="${lx.toFixed(1)}" y="${(ly+dy).toFixed(1)}" text-anchor="${anchor}" font-size="9.5" font-weight="600" fill="#6a6760">${d.label}</text>`;
+  });
+  p+=`<path d="${path(avgVals)}" fill="rgba(163,158,152,.10)" stroke="#94908a" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+  p+=`<path d="${path(vals)}" fill="${e.quad.fill}29" stroke="${e.quad.ink}" stroke-width="2"/>`;
+  vals.forEach((v,i)=>{const[x,y]=pt(i,v);p+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="2.8" fill="${e.quad.ink}"/>`;});
+  return `<svg viewBox="0 0 280 236" role="img" aria-label="Metric profile for ${e.event} against the all-events average">${p}</svg>`;
+}
 function renderTable(){
   const rows=[...EVENTS].sort((a,b)=>{let av=a[sortKey],bv=b[sortKey];return typeof av==="string"?sortDir*av.localeCompare(bv):sortDir*(av-bv);});
   document.getElementById('rankBody').innerHTML=rows.map((e,idx)=>{
     const nsCol=e.ns>=0?"#1E9E7C":"#E0373D",covW=Math.min(e.coverage,1)*100,resW=Math.min(e.resonance,1)*100;
-    return `<tr data-cat="${e.cat}" data-name="${e.event}">
+    return `<tr class="erow" data-cat="${e.cat}" data-name="${e.event}" tabindex="0" aria-expanded="false">
       <td class="rk data">${String(idx+1).padStart(2,'0')}</td>
-      <td><div class="ev-name">${e.event}</div><span class="qtag" style="background:${e.quad.fill}22;color:${e.quad.ink}">${e.quad.label}</span></td>
+      <td><div class="ev-name"><span class="exp-caret">▶</span>${e.event}</div><span class="qtag" style="background:${e.quad.fill}22;color:${e.quad.ink}">${e.quad.label}</span></td>
       <td class="hide-sm" style="color:var(--muted);font-weight:300">${e.cat}</td>
       <td class="barcell"><div class="barval data">${e.coverage.toFixed(2)}</div><div class="bar"><span style="width:${covW}%;background:#6446FF"></span></div></td>
       <td class="barcell"><div class="barval data">${e.resonance.toFixed(2)}</div><div class="bar"><span style="width:${resW}%;background:#AF46B4"></span></div></td>
       <td class="num data hide-sm">${fmtVol(e.volume)}</td>
       <td class="num data hide-sm" style="color:${nsCol}">${e.ns>0?'+':''}${e.ns}</td>
       <td class="num"><span class="score-pill data" style="color:${e.quad.ink}">${fmtScore(e.score)}</span></td>
-    </tr>`;
+    </tr>
+    <tr class="detail-row" data-cat="${e.cat}" hidden><td colspan="8"><div class="detail-inner">
+      ${buildEventRadar(e)}
+      <div class="detail-copy">
+        <h4>What happened in Q2</h4>
+        <p>${WHAT[e.event]||""}</p>
+        <div class="dleg">Solid shape: this story · Dashed: all-events average · Metrics scaled 0–1 across the event set</div>
+      </div>
+    </div></td></tr>`;
   }).join("");
-  applyFilter();
+  initExpand();applyFilter();
+}
+function toggleRow(tr,forceOpen){
+  const det=tr.nextElementSibling;
+  if(!det||!det.classList.contains('detail-row'))return;
+  const isHidden=det.hasAttribute('hidden');
+  if(forceOpen&&!isHidden)return;
+  if(isHidden){det.removeAttribute('hidden');tr.setAttribute('aria-expanded','true');}
+  else{det.setAttribute('hidden','');tr.setAttribute('aria-expanded','false');}
+}
+function initExpand(){
+  document.querySelectorAll('#rankBody tr.erow').forEach(tr=>{
+    tr.addEventListener('click',()=>toggleRow(tr));
+    tr.addEventListener('keydown',ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();toggleRow(tr);}});
+  });
 }
 const KEY_LABEL={event:"Event",coverage:"Coverage",resonance:"Resonance",volume:"Volume",ns:"Net sentiment",score:"Score"};
 function initSort(){
@@ -1008,7 +1094,7 @@ function initSort(){
 }
 function flashRow(name){
   document.getElementById('rankings').scrollIntoView({behavior:'smooth',block:'start'});
-  setTimeout(()=>{const tr=document.querySelector(`#rankBody tr[data-name="${CSS.escape(name)}"]`);if(tr){tr.classList.add('flash');setTimeout(()=>tr.classList.remove('flash'),1600);}},300);
+  setTimeout(()=>{const tr=document.querySelector(`#rankBody tr[data-name="${CSS.escape(name)}"]`);if(tr){toggleRow(tr,true);tr.classList.add('flash');setTimeout(()=>tr.classList.remove('flash'),1600);}},300);
 }
 /* ---------------- SPOTLIGHTS ---------------- */
 function buildSpotlights(){
@@ -1027,9 +1113,9 @@ function buildSpotlights(){
 /* ---------------- DWELL TIME ---------------- */
 /* avg time on page (seconds), from Signal AI + Memo Q2 2026 macro-trends dataset */
 const DWELL={
- "Met Gala":226,"NBA Finals":214,"Nancy Guthrie Disappearance":211,"Hantavirus":184,
- "Epstein Files":181,"Memorial Day":177,"USA 250th Birthday":166,"Venezuela / Maduro capture":165,
- "FIFA World Cup":159,"Russia-Ukraine War":132,"SpaceX IPO":123,"US-Iran War":123
+ "Met Gala":226,"NBA Finals":214,"Nancy Guthrie Disappearance":211,"Hantavirus Outbreak":184,
+ "Epstein Files":181,"Memorial Day":177,"USA 250th Anniversary":166,"Venezuela Military Intervention":165,
+ "FIFA World Cup":159,"Russia-Ukraine War":132,"SpaceX IPO":123,"US-Iran Conflict":123
 };
 function fmtDwell(s){const m=Math.floor(s/60);return m?`${m}m ${s%60}s`:`${s}s`;}
 function buildDwell(){
